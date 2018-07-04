@@ -14,7 +14,8 @@ class TestsArrayViewModel: XCTestCase {
 
 		// set up
 		let delegate = TestArrayViewModelDelegate()
-		let array = TestArrayViewModel(query: TestQuery())
+		let array = TestArrayViewModel()
+		array.query = TestQuery()
 		array.delegate = delegate
 
 		// fetch data
@@ -30,11 +31,41 @@ class TestsArrayViewModel: XCTestCase {
 		wait(for: [expectation], timeout: 0.2)
 	}
 
-	func testArray() {
+	func testArrayNoPagination() {
+
+		// test with query nil
+		let array = TestArrayViewModel()
+
+		array.reloadData()
+		XCTAssertEqual(array.numberOfItems, 6, "not all elements loaded")
+
+		array.loadMore()
+		XCTAssertEqual(array.numberOfItems, 6, "somehow loaded more elements")
+
+		let item1 = array.item(at: 3)
+		XCTAssertEqual(item1.number, 3, "wrong element")
+
+		// test with query but isPaginationEnabled = false
+		let query = TestQuery()
+		query.isPaginationEnabled = false
+		array.query = query
+
+		array.reloadData()
+		XCTAssertEqual(array.numberOfItems, 6, "not all elements loaded")
+
+		array.loadMore()
+		XCTAssertEqual(array.numberOfItems, 6, "somehow loaded more elements")
+
+		let item2 = array.item(at: 3)
+		XCTAssertEqual(item2.number, 3, "wrong element")
+	}
+
+	func testArrayPagination() {
 
 		// test initial load
 		let query = TestQuery()
-		let array = TestArrayViewModel(query: query)
+		let array = TestArrayViewModel()
+		array.query = query
 		array.reloadData()
 		let count1 = array.numberOfItems
 		XCTAssertEqual(array.numberOfItems, query.size, "elements did not load")

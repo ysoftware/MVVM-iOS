@@ -14,8 +14,12 @@ let data = [TestModel(0), TestModel(1), TestModel(2), TestModel(3),  TestModel(4
 class TestQuery:Query {
 
 	var offset:Int { return page*size }
+
 	var page = 0
+
 	var size = 2
+
+	var isPaginationEnabled = true
 
 	func advance() {
 		page += 1
@@ -52,10 +56,15 @@ class TestViewModel:ViewModel<TestModel> {
 
 class TestArrayViewModel: ArrayViewModel<TestModel, TestViewModel, TestQuery> {
 
-	override func fetchData(_ query: TestQuery, _ block: @escaping ([TestModel])->Void) {
-		let startIndex = data.startIndex.advanced(by: query.offset)
-		let endIndex = min(startIndex.advanced(by: query.size), data.endIndex)
-		block(Array(data[startIndex..<endIndex]))
+	override func fetchData(_ query: TestQuery?, _ block: @escaping ([TestModel])->Void) {
+		if let query = query, query.isPaginationEnabled {
+			let startIndex = data.startIndex.advanced(by: query.offset)
+			let endIndex = min(startIndex.advanced(by: query.size), data.endIndex)
+			block(Array(data[startIndex..<endIndex]))
+		}
+		else {
+			block(data)
+		}
 	}
 
 }

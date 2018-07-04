@@ -10,6 +10,8 @@ import Foundation
 
 public protocol Query {
 
+	var isPaginationEnabled:Bool { get }
+
 	var size:Int { get }
 
 	func resetPosition()

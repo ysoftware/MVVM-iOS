@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Основной класс для управления данными.
 public class ViewModel<M> {
 
 	public required init(_ model:M) {
@@ -17,9 +18,8 @@ public class ViewModel<M> {
 	// MARK: - Public properties
 
 	typealias Model = M
-	public weak var delegate:ViewModelDelegate?
 
-	// MARK: - Private properties
+	public weak var delegate:ViewModelDelegate?
 
 	public let model:M!
 
