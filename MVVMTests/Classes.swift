@@ -30,12 +30,13 @@ class TestQuery:Query {
 	}
 }
 
-class TestModel {
+class TestModel:NSObject {
 	
 	var number:Int
 
 	init(_ n:Int) {
 		number = n
+
 	}
 }
 
@@ -46,12 +47,24 @@ class TestArrayViewModelDelegate: ArrayViewModelDelegate {
 	func didUpdateData() {
 		didUpdate = true
 	}
+
+	func didAddElements(at indexes: [Int]) {
+
+	}
+
+	func didDeleteElements(at indexes: [Int]) {
+
+	}
+
+	func didUpdateElements(at indexes: [Int]) {
+
+	}
 }
 
 class TestViewModel:ViewModel<TestModel> {
 
 	// properties
-	var number:Int { return model.number }
+	var number:Int { return model?.number ?? 0 }
 }
 
 class TestArrayViewModel: ArrayViewModel<TestModel, TestViewModel, TestQuery> {

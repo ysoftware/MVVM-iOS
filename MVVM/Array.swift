@@ -9,7 +9,10 @@
 import Foundation
 
 /// Основной класс для управления списками данных.
-public class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
+open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
+
+	/// Default initializer
+	public init() {}
 
 	// MARK: - Public properties
 
@@ -28,7 +31,7 @@ public class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 	// MARK: - Private properties
 
 	/// Список view model.
-	private var list:[VM] = []
+	public private(set) var array:[VM] = []
 
 	/// Нужно ли очистить данные при следующей загрузке.
 	/// Защищает от крэша.
@@ -41,7 +44,7 @@ public class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 	/// - Parameters:
 	///   - query: объект query для настройки запроса к базе.
 	///   - block: блок, в который необходимо отправить загруженные объекты.
-	public func fetchData(_ query:Q?, _ block: @escaping ([M])->Void) {
+	open func fetchData(_ query:Q?, _ block: @escaping ([M])->Void) {
 		fatalError("override ArrayViewModel.fetchData(_:_:)")
 	}
 
@@ -60,7 +63,6 @@ public class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 			}
 			self.manageItems(items)
 			self.isLoading = false
-			self.didUpdateData()
 		}
 		query?.advance()
 	}
@@ -73,7 +75,7 @@ public class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 
 	/// Текущее количество элементов в списке.
 	public var numberOfItems:Int {
-		return list.count
+		return array.count
 	}
 
 	/// Получить элемент по индексу.
@@ -85,20 +87,32 @@ public class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 	/// - Returns: элемент view model из списка.
 	public func item(at index:Int,
 					 shouldLoadMore:Bool = false) -> VM {
-		if shouldLoadMore, index == list.count - 1 {
+		if shouldLoadMore, index == array.count - 1 {
 			loadMore()
 		}
-		return list[index]
+		return array[index]
 	}
 
-	// MARK: - Private methods
+	// MARK: - Change model
 
-	/// Вызвать delegate.didUpdateData на main thread.
-	private func didUpdateData() {
-		guard let delegate = delegate else { return }
+	public func append(_ element:VM) {
 		DispatchQueue.main.async {
-			delegate.didUpdateData(self)
-			delegate.didUpdateData()
+			self.array.append(element)
+			self.didAddElements(at: [self.array.endIndex - 1])
+		}
+	}
+
+	public func delete(at index:Int) {
+		DispatchQueue.main.async {
+			self.array.remove(at: index)
+			self.didDeleteElements(at: [index])
+		}
+	}
+
+	public func notifyUpdated(_ viewModel: VM) {
+		guard let index = array.index(of: viewModel) else { return }
+		DispatchQueue.main.async {
+			self.didUpdateElements(at: [index])
 		}
 	}
 
@@ -106,17 +120,28 @@ public class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 	///
 	/// - Parameter newItems: новые элементы.
 	public func manageItems(_ newItems:[M]) {
-		if shouldClearData {
-			list = []
-			shouldClearData = false
-		}
-		if newItems.isEmpty {
-			reachedEnd = true
-		}
-		else {
-			list.append(contentsOf: newItems.map { VM($0) })
+		DispatchQueue.main.async {
+			if self.shouldClearData {
+				self.array = []
+				self.shouldClearData = false
+			}
+			if newItems.isEmpty {
+				self.reachedEnd = true
+			}
+			else {
+				self.array.append(contentsOf: newItems.map { VM($0) })
+				self.array.forEach { $0.delegate = self }
+
+				// notify
+				let endIndex = self.array.endIndex
+				let startIndex = endIndex - newItems.count
+				let indexes = (startIndex..<endIndex).map { $0 }
+				self.didAddElements(at: indexes)
+			}
 		}
 	}
+
+	// MARK: - Private methods
 
 	/// Очистить данные и сбросить информацию о загрузке.
 	private func resetData() {
@@ -124,4 +149,47 @@ public class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 		query?.resetPosition()
 		reachedEnd = false
 	}
+
+	// MARK: - Delegate calls
+
+	private func didAddElements(at indexes:[Int]) {
+		guard let delegate = delegate, !indexes.isEmpty else { return }
+		delegate.didAddElements(at: indexes)
+		delegate.didUpdateData()
+	}
+
+	private func didUpdateElements(at indexes:[Int]) {
+		guard let delegate = delegate, !indexes.isEmpty else { return }
+		delegate.didUpdateElements(at: indexes)
+		delegate.didUpdateData()
+	}
+
+	private func didDeleteElements(at indexes:[Int]) {
+		guard let delegate = delegate, !indexes.isEmpty else { return }
+		delegate.didDeleteElements(at: indexes)
+		delegate.didUpdateData()
+	}
+
 }
+
+extension ArrayViewModel: ViewModelDelegate {
+
+	public func didUpdateData<M>(_ viewModel: ViewModel<M>) {
+		notifyUpdated(viewModel as! VM)
+	}
+}
+
+extension ArrayViewModel: Equatable {
+	public static func == (lhs: ArrayViewModel<M, VM, Q>,
+						   rhs: ArrayViewModel<M, VM, Q>) -> Bool {
+		return lhs.array == rhs.array
+	}
+}
+
+extension ArrayViewModel: CustomDebugStringConvertible {
+
+	public var debugDescription: String {
+		return "ArrayViewModel with \(array.count) element(s)"
+	}
+}
+

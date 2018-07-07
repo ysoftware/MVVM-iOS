@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import MVVM
 
 class TestsArrayViewModel: XCTestCase {
 

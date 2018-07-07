@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7119BE7620F097DC00B758E2 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7119BE7520F097DC00B758E2 /* Query.swift */; };
+		7119BE7A20F0980700B758E2 /* Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7119BE7920F0980700B758E2 /* Delegate.swift */; };
+		7119BE7E20F0997400B758E2 /* TestArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132E2F220ECC554002861F8 /* TestArray.swift */; };
 		7132E2E020ECBE6F002861F8 /* MVVM.h in Headers */ = {isa = PBXBuildFile; fileRef = 7132E2DE20ECBE6F002861F8 /* MVVM.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7132E2E720ECBEA9002861F8 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132E2E620ECBEA9002861F8 /* Array.swift */; };
 		7132E2E920ECBEC5002861F8 /* Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132E2E820ECBEC5002861F8 /* Single.swift */; };
-		7132E2EB20ECBFC8002861F8 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132E2EA20ECBFC8002861F8 /* Types.swift */; };
-		7132E2F320ECC554002861F8 /* TestArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132E2F220ECC554002861F8 /* TestArray.swift */; };
 		7132E2F520ECC554002861F8 /* MVVM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7132E2DB20ECBE6F002861F8 /* MVVM.framework */; };
 		7132E2FC20ECC55D002861F8 /* Classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132E2FB20ECC55D002861F8 /* Classes.swift */; };
+		71493E8120EFBA1D00E579C1 /* MVVM.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 71493E8020EFBA1D00E579C1 /* MVVM.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,16 +29,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7119BE7520F097DC00B758E2 /* Query.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
+		7119BE7920F0980700B758E2 /* Delegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Delegate.swift; sourceTree = "<group>"; };
 		7132E2DB20ECBE6F002861F8 /* MVVM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MVVM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7132E2DE20ECBE6F002861F8 /* MVVM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MVVM.h; sourceTree = "<group>"; };
 		7132E2DF20ECBE6F002861F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7132E2E620ECBEA9002861F8 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		7132E2E820ECBEC5002861F8 /* Single.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Single.swift; sourceTree = "<group>"; };
-		7132E2EA20ECBFC8002861F8 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		7132E2F020ECC553002861F8 /* MVVMTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MVVMTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7132E2F220ECC554002861F8 /* TestArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestArray.swift; sourceTree = "<group>"; };
 		7132E2F420ECC554002861F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7132E2FB20ECC55D002861F8 /* Classes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classes.swift; sourceTree = "<group>"; };
+		71493E8020EFBA1D00E579C1 /* MVVM.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MVVM.podspec; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,9 +85,11 @@
 			children = (
 				7132E2E820ECBEC5002861F8 /* Single.swift */,
 				7132E2E620ECBEA9002861F8 /* Array.swift */,
-				7132E2EA20ECBFC8002861F8 /* Types.swift */,
+				7119BE7520F097DC00B758E2 /* Query.swift */,
+				7119BE7920F0980700B758E2 /* Delegate.swift */,
 				7132E2DE20ECBE6F002861F8 /* MVVM.h */,
 				7132E2DF20ECBE6F002861F8 /* Info.plist */,
+				71493E8020EFBA1D00E579C1 /* MVVM.podspec */,
 			);
 			path = MVVM;
 			sourceTree = "<group>";
@@ -190,6 +196,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71493E8120EFBA1D00E579C1 /* MVVM.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,8 +214,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7132E2EB20ECBFC8002861F8 /* Types.swift in Sources */,
+				7119BE7A20F0980700B758E2 /* Delegate.swift in Sources */,
 				7132E2E720ECBEA9002861F8 /* Array.swift in Sources */,
+				7119BE7620F097DC00B758E2 /* Query.swift in Sources */,
 				7132E2E920ECBEC5002861F8 /* Single.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -218,7 +226,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7132E2FC20ECC55D002861F8 /* Classes.swift in Sources */,
-				7132E2F320ECC554002861F8 /* TestArray.swift in Sources */,
+				7119BE7E20F0997400B758E2 /* TestArray.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
