@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Основной класс для управления списками данных.
+/// Основной класс для управления списками данных с возможной пагинацией.
 open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 
 	/// Default initializer
@@ -153,6 +153,19 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 		shouldClearData = true
 		query?.resetPosition()
 		reachedEnd = false
+	}
+}
+
+/// Основной класс для управления списками данных без пагинации.
+open class SimpleArrayViewModel<M, VM:ViewModel<M>>: ArrayViewModel<M, VM, SimpleQuery> {
+
+	final override public func fetchData(_ query: SimpleQuery?,
+										 _ block: @escaping ([M]) -> Void) {
+		fetchData(block)
+	}
+
+	open func fetchData(_ block: @escaping ([M])->Void) {
+		fatalError("override ArrayViewModel.fetchData(_:)")
 	}
 }
 

@@ -10,13 +10,20 @@ import Foundation
 
 public protocol Query {
 
-	var isPaginationEnabled:Bool { get }
+	var isPaginationEnabled: Bool { get }
 
 	var size: Int { get }
 
 	func resetPosition()
 
 	func advance()
+}
+
+public extension Query {
+
+	var isPaginationEnabled: Bool { return true }
+
+	var size: Int { return 20 }
 }
 
 public class SimpleQuery:Query {

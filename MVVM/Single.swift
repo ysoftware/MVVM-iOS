@@ -26,7 +26,7 @@ open class ViewModel<M:Equatable> {
 
 	// MARK: - Public methods
 
-	public func didUpdateData() {
+	public func notifyUpdated() {
 		guard let delegate = delegate else { return }
 		delegate.didUpdateData(self)
 	}
