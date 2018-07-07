@@ -19,7 +19,13 @@ open class ViewModel<M:Equatable> {
 
 	typealias Model = M
 
-	public weak var delegate:ViewModelDelegate?
+	public weak var delegate:ViewModelDelegate? {
+		didSet {
+			if model != nil {
+				delegate?.didUpdateData(self)
+			}
+		}
+	}
 
 	/// Может быть nil если данные загружаются внутри view model.
 	public var model:M?

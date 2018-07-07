@@ -7,19 +7,6 @@
 
 import Foundation
 
-// MARK: - Single
-
-public protocol ViewModelDelegate: class {
-
-	func didUpdateData<M>(_ viewModel: ViewModel<M>)
-}
-
-public extension ViewModelDelegate {
-	func didUpdateData<M>(_ viewModel: ViewModel<M>) {}
-}
-
-// MARK: - Array
-
 public protocol ArrayViewModelDelegate: class {
 
 	/// Список был полностью или частично обновлен.
@@ -69,6 +56,21 @@ public protocol ArrayViewModelDelegate: class {
 	///  },
 	/// with: .automatic)
 	func didUpdateElements(at indexes:[Int])
+
+	/// Элемент был перемещён.
+	///
+	/// - Parameters:
+	///   - startIndex: начальная позиция элемента.
+	///   - endIndex: новая позиция элемента (после перемещения).
+	///
+	///	Рекомендуется вызов
+	/// ```
+	/// .moveRow(
+	///   at: IndexPath(row: index,
+	///                 section: 0),
+	///   to: IndexPath(row: newIndex,
+	///               section: 0))
+	func didMoveElement(at startIndex:Int, to endIndex:Int)
 }
 
 public extension ArrayViewModelDelegate {
@@ -78,6 +80,8 @@ public extension ArrayViewModelDelegate {
 	func didUpdateElements(at indexes:[Int]) {}
 
 	func didAddElements(at indexes:[Int]) {}
+
+	func didMoveElement(at startIndex:Int, to endIndex:Int) {}
 
 	func didUpdateData() {}
 }

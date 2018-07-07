@@ -7,15 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7119BE7620F097DC00B758E2 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7119BE7520F097DC00B758E2 /* Query.swift */; };
-		7119BE7A20F0980700B758E2 /* Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7119BE7920F0980700B758E2 /* Delegate.swift */; };
 		7119BE7E20F0997400B758E2 /* TestArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132E2F220ECC554002861F8 /* TestArray.swift */; };
 		7132E2E020ECBE6F002861F8 /* MVVM.h in Headers */ = {isa = PBXBuildFile; fileRef = 7132E2DE20ECBE6F002861F8 /* MVVM.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7132E2E720ECBEA9002861F8 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132E2E620ECBEA9002861F8 /* Array.swift */; };
 		7132E2E920ECBEC5002861F8 /* Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132E2E820ECBEC5002861F8 /* Single.swift */; };
 		7132E2F520ECC554002861F8 /* MVVM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7132E2DB20ECBE6F002861F8 /* MVVM.framework */; };
 		7132E2FC20ECC55D002861F8 /* Classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132E2FB20ECC55D002861F8 /* Classes.swift */; };
 		71493E8120EFBA1D00E579C1 /* MVVM.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 71493E8020EFBA1D00E579C1 /* MVVM.podspec */; };
+		71961FFA20F1171600CB240C /* SingleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71961FF920F1171600CB240C /* SingleDelegate.swift */; };
+		7196200220F1183100CB240C /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71961FFC20F1183100CB240C /* Query.swift */; };
+		7196200320F1183100CB240C /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71961FFD20F1183100CB240C /* Array.swift */; };
+		7196200420F1183100CB240C /* ArrayDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71961FFE20F1183100CB240C /* ArrayDelegate.swift */; };
+		7196200620F1183100CB240C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7196200020F1183100CB240C /* Extensions.swift */; };
+		7196200720F1183100CB240C /* Simple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7196200120F1183100CB240C /* Simple.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,18 +32,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7119BE7520F097DC00B758E2 /* Query.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
-		7119BE7920F0980700B758E2 /* Delegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Delegate.swift; sourceTree = "<group>"; };
 		7132E2DB20ECBE6F002861F8 /* MVVM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MVVM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7132E2DE20ECBE6F002861F8 /* MVVM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MVVM.h; sourceTree = "<group>"; };
 		7132E2DF20ECBE6F002861F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7132E2E620ECBEA9002861F8 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		7132E2E820ECBEC5002861F8 /* Single.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Single.swift; sourceTree = "<group>"; };
 		7132E2F020ECC553002861F8 /* MVVMTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MVVMTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7132E2F220ECC554002861F8 /* TestArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestArray.swift; sourceTree = "<group>"; };
 		7132E2F420ECC554002861F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7132E2FB20ECC55D002861F8 /* Classes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classes.swift; sourceTree = "<group>"; };
-		71493E8020EFBA1D00E579C1 /* MVVM.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MVVM.podspec; sourceTree = SOURCE_ROOT; };
+		71493E8020EFBA1D00E579C1 /* MVVM.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MVVM.podspec; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		71961FF920F1171600CB240C /* SingleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleDelegate.swift; sourceTree = "<group>"; };
+		71961FFC20F1183100CB240C /* Query.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
+		71961FFD20F1183100CB240C /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		71961FFE20F1183100CB240C /* ArrayDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayDelegate.swift; sourceTree = "<group>"; };
+		7196200020F1183100CB240C /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		7196200120F1183100CB240C /* Simple.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Simple.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,10 +89,8 @@
 		7132E2DD20ECBE6F002861F8 /* MVVM */ = {
 			isa = PBXGroup;
 			children = (
-				7132E2E820ECBEC5002861F8 /* Single.swift */,
-				7132E2E620ECBEA9002861F8 /* Array.swift */,
-				7119BE7520F097DC00B758E2 /* Query.swift */,
-				7119BE7920F0980700B758E2 /* Delegate.swift */,
+				71961FF820F116FF00CB240C /* View Model */,
+				71961FFB20F1183100CB240C /* Array View Model */,
 				7132E2DE20ECBE6F002861F8 /* MVVM.h */,
 				7132E2DF20ECBE6F002861F8 /* Info.plist */,
 				71493E8020EFBA1D00E579C1 /* MVVM.podspec */,
@@ -102,6 +106,27 @@
 				7132E2F420ECC554002861F8 /* Info.plist */,
 			);
 			path = MVVMTests;
+			sourceTree = "<group>";
+		};
+		71961FF820F116FF00CB240C /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				7132E2E820ECBEC5002861F8 /* Single.swift */,
+				71961FF920F1171600CB240C /* SingleDelegate.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		71961FFB20F1183100CB240C /* Array View Model */ = {
+			isa = PBXGroup;
+			children = (
+				71961FFC20F1183100CB240C /* Query.swift */,
+				71961FFD20F1183100CB240C /* Array.swift */,
+				71961FFE20F1183100CB240C /* ArrayDelegate.swift */,
+				7196200020F1183100CB240C /* Extensions.swift */,
+				7196200120F1183100CB240C /* Simple.swift */,
+			);
+			path = "Array View Model";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,10 +239,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7119BE7A20F0980700B758E2 /* Delegate.swift in Sources */,
-				7132E2E720ECBEA9002861F8 /* Array.swift in Sources */,
-				7119BE7620F097DC00B758E2 /* Query.swift in Sources */,
+				7196200720F1183100CB240C /* Simple.swift in Sources */,
+				71961FFA20F1171600CB240C /* SingleDelegate.swift in Sources */,
+				7196200420F1183100CB240C /* ArrayDelegate.swift in Sources */,
+				7196200320F1183100CB240C /* Array.swift in Sources */,
+				7196200220F1183100CB240C /* Query.swift in Sources */,
 				7132E2E920ECBEC5002861F8 /* Single.swift in Sources */,
+				7196200620F1183100CB240C /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
