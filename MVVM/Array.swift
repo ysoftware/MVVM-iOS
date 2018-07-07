@@ -98,21 +98,22 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 	public func append(_ element:VM) {
 		DispatchQueue.main.async {
 			self.array.append(element)
-			self.didAddElements(at: [self.array.endIndex - 1])
+			self.delegate?.didAddElements(at: [self.array.endIndex-1])
 		}
 	}
 
 	public func delete(at index:Int) {
 		DispatchQueue.main.async {
 			self.array.remove(at: index)
-			self.didDeleteElements(at: [index])
+			self.delegate?.didDeleteElements(at: [index])
 		}
 	}
 
 	public func notifyUpdated(_ viewModel: VM) {
 		guard let index = array.index(of: viewModel) else { return }
 		DispatchQueue.main.async {
-			self.didUpdateElements(at: [index])
+			self.delegate?.didUpdateElements(at: [index])
+			self.delegate?.didUpdateData()
 		}
 	}
 
@@ -125,6 +126,7 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 				self.array = []
 				self.shouldClearData = false
 			}
+			let isFirstLoad = self.array.isEmpty
 			if newItems.isEmpty {
 				self.reachedEnd = true
 			}
@@ -133,10 +135,13 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 				self.array.forEach { $0.delegate = self }
 
 				// notify
-				let endIndex = self.array.endIndex
-				let startIndex = endIndex - newItems.count
-				let indexes = (startIndex..<endIndex).map { $0 }
-				self.didAddElements(at: indexes)
+				if !isFirstLoad {
+					let endIndex = self.array.endIndex
+					let startIndex = endIndex - newItems.count
+					let indexes = (startIndex..<endIndex).map { $0 }
+					self.delegate?.didAddElements(at: indexes)
+				}
+				self.delegate?.didUpdateData()
 			}
 		}
 	}
@@ -149,27 +154,6 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 		query?.resetPosition()
 		reachedEnd = false
 	}
-
-	// MARK: - Delegate calls
-
-	private func didAddElements(at indexes:[Int]) {
-		guard let delegate = delegate, !indexes.isEmpty else { return }
-		delegate.didAddElements(at: indexes)
-		delegate.didUpdateData()
-	}
-
-	private func didUpdateElements(at indexes:[Int]) {
-		guard let delegate = delegate, !indexes.isEmpty else { return }
-		delegate.didUpdateElements(at: indexes)
-		delegate.didUpdateData()
-	}
-
-	private func didDeleteElements(at indexes:[Int]) {
-		guard let delegate = delegate, !indexes.isEmpty else { return }
-		delegate.didDeleteElements(at: indexes)
-		delegate.didUpdateData()
-	}
-
 }
 
 extension ArrayViewModel: ViewModelDelegate {

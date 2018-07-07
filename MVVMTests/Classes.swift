@@ -36,7 +36,6 @@ class TestModel:NSObject {
 
 	init(_ n:Int) {
 		number = n
-
 	}
 }
 
