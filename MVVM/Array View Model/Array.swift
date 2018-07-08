@@ -9,9 +9,10 @@
 import Foundation
 
 /// Основной класс для управления списками данных с возможной пагинацией.
+/// Для простого списка без пагинации, есть упрощённый сабкласс `SimpleArrayViewModel`.
 open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 
-	/// Default initializer
+	/// Стандартный инициализатор.
 	public init() {}
 
 	// MARK: - Public properties
@@ -50,7 +51,8 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 	/// - Parameters:
 	///   - query: объект query для настройки запроса к базе.
 	///   - block: блок, в который необходимо отправить загруженные объекты.
-	open func fetchData(_ query:Q?, _ block: @escaping ([M])->Void) {
+	///	  - data: список объектов класса модели, полученный из базы данных.
+	open func fetchData(_ query:Q?, _ block: @escaping (_ data:[M])->Void) {
 		fatalError("override ArrayViewModel.fetchData(_:_:)")
 	}
 
@@ -121,6 +123,9 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 
 	// MARK: - Operations
 
+	/// Добвить элемент в список.
+	///
+	/// - Parameter element: новый объект viewModel.
 	public func append(_ element:VM) {
 		DispatchQueue.main.async {
 			self.array.append(element)
@@ -138,8 +143,8 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 	/// - Parameters:
 	///   - index: индекс элемента.
 	///   - shouldLoadMore: должна ли запуститься пагинация при запросе последнего элемента.
-	///    Полезно при заполнении ячейки table или collection view.
-	/// - Returns: элемент view model из списка.
+	///    Полезно при заполнении ячейки table или collectionView.
+	/// - Returns: элемент viewModel из списка.
 	public func item(at index:Int,
 					 shouldLoadMore:Bool = false) -> VM {
 		if shouldLoadMore, index == array.count - 1 {
@@ -148,6 +153,10 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 		return array[index]
 	}
 
+	/// Уведомить arrayViewModel об обновлении отдельного элемента.
+	/// Элемент должен находиться в списке.
+	///
+	/// - Parameter viewModel: обновлённый view model.
 	public func notifyUpdated(_ viewModel: VM) {
 		guard let index = array.index(of: viewModel) else { return }
 		DispatchQueue.main.async {
@@ -155,17 +164,30 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 		}
 	}
 
+	/// Удалить элемент из списка.
+	///
+	/// - Parameter index: позиция элемента.
 	public func delete(at index:Int) {
+		// обновление данных и вызов делегата
+		// должны быть на одном потоке, иначе может произойти
+		// ошибка tableView inconsistency
 		DispatchQueue.main.async {
 			self.array.remove(at: index)
 			self.delegate?.didDeleteElements(at: [index])
 		}
 	}
 
+	/// Переместить элемент.
+	///
+	/// - Parameters:
+	///   - index: первоначальная позиция элемента.
+	///   - newIndex: новая позиция элемента (после перемещения)
 	public func move(at index:Int, to newIndex:Int) {
 		guard array.endIndex > index, index >= 0 else { return }
-		let newIndex = min(newIndex, array.endIndex-1)
-		array.insert(array.remove(at: index), at: newIndex)
-		self.delegate?.didMoveElement(at: index, to: newIndex)
+		DispatchQueue.main.async {
+			let newIndex = min(newIndex, self.array.endIndex-1)
+			self.array.insert(self.array.remove(at: index), at: newIndex)
+			self.delegate?.didMoveElement(at: index, to: newIndex)
+		}
 	}
 }

@@ -8,14 +8,23 @@
 
 import Foundation
 
+/// Настройка запроса. Может использоваться для передачи данных о фильтрации,
+/// сортировке и других параметрах запроса при обращении в базу данных.
 public protocol Query {
 
+	/// Использовать ли пагинацию.
 	var isPaginationEnabled: Bool { get }
 
+	/// Размер загружаемого при пагинации списка.
 	var size: Int { get }
 
+	/// Сбросить позицию пагинации.
 	func resetPosition()
 
+	/// Продвинуться вперёд по списку.
+	/// ```
+	/// // Например,
+	/// page += 1
 	func advance()
 }
 
@@ -24,15 +33,4 @@ public extension Query {
 	var isPaginationEnabled: Bool { return true }
 
 	var size: Int { return 20 }
-}
-
-public class SimpleQuery:Query {
-
-	public var isPaginationEnabled = false
-
-	public var size: Int = 0
-
-	public func resetPosition() {}
-
-	public func advance() {}
 }

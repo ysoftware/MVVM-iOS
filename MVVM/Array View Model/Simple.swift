@@ -11,11 +11,26 @@ import Foundation
 open class SimpleArrayViewModel<M, VM:ViewModel<M>>: ArrayViewModel<M, VM, SimpleQuery> {
 
 	final override public func fetchData(_ query: SimpleQuery?,
-										 _ block: @escaping ([M]) -> Void) {
+										 _ block: @escaping (_ data:[M]) -> Void) {
 		fetchData(block)
 	}
 
-	open func fetchData(_ block: @escaping ([M])->Void) {
+	/// Метод для загрузки данных из базы данных. Обязателен к оверрайду.
+	///
+	/// - Parameters:
+	///   - block: блок, в который необходимо отправить загруженные объекты.
+	///	  - data: список объектов класса модели, полученный из базы данных.
+	open func fetchData(_ block: @escaping (_ data:[M])->Void) {
 		fatalError("override ArrayViewModel.fetchData(_:)")
 	}
+}
+
+/// Query-заглушка, используемая в SimpleArrayViewModel.
+public class SimpleQuery:Query {
+
+	public var isPaginationEnabled = false
+
+	public func resetPosition() {}
+
+	public func advance() {}
 }

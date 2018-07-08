@@ -42,21 +42,29 @@ class TestModel:NSObject {
 class TestArrayViewModelDelegate: ArrayViewModelDelegate {
 
 	var didUpdate = false
+	var didUpdateElement = false
+	var didAddElement = false
+	var didMoveElement = false
+	var didDeleteElement = false
 
 	func didUpdateData() {
 		didUpdate = true
 	}
 
 	func didAddElements(at indexes: [Int]) {
-
+		didAddElement = true
 	}
 
 	func didDeleteElements(at indexes: [Int]) {
-
+		didDeleteElement = true
 	}
 
 	func didUpdateElements(at indexes: [Int]) {
+		didUpdateElement = true 
+	}
 
+	func didMoveElement(at startIndex: Int, to endIndex: Int) {
+		didMoveElement = true
 	}
 }
 
@@ -64,6 +72,11 @@ class TestViewModel:ViewModel<TestModel> {
 
 	// properties
 	var number:Int { return model?.number ?? 0 }
+
+	func setNumber(_ number:Int) {
+		model?.number = number
+		notifyUpdated()
+	}
 }
 
 class TestArrayViewModel: ArrayViewModel<TestModel, TestViewModel, TestQuery> {

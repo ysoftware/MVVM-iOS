@@ -120,8 +120,8 @@
 		71961FFB20F1183100CB240C /* Array View Model */ = {
 			isa = PBXGroup;
 			children = (
-				71961FFC20F1183100CB240C /* Query.swift */,
 				71961FFD20F1183100CB240C /* Array.swift */,
+				71961FFC20F1183100CB240C /* Query.swift */,
 				71961FFE20F1183100CB240C /* ArrayDelegate.swift */,
 				7196200020F1183100CB240C /* Extensions.swift */,
 				7196200120F1183100CB240C /* Simple.swift */,

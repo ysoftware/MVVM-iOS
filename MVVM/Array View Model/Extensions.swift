@@ -14,13 +14,6 @@ extension ArrayViewModel: ViewModelDelegate {
 	}
 }
 
-extension ArrayViewModel: Equatable {
-	public static func == (lhs: ArrayViewModel<M, VM, Q>,
-						   rhs: ArrayViewModel<M, VM, Q>) -> Bool {
-		return lhs.array == rhs.array
-	}
-}
-
 extension ArrayViewModel: CustomDebugStringConvertible {
 
 	public var debugDescription: String {
