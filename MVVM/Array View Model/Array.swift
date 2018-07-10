@@ -81,6 +81,12 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 		loadMore()
 	}
 
+	/// Сбросить все данные.
+	public func clearData() {
+		resetData()
+		manageItems([])
+	}
+
 	/// Принять новые загруженные элементы в список.
 	///
 	/// - Parameter newItems: новые элементы.
@@ -89,6 +95,7 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 			if self.shouldClearData {
 				self.array = []
 				self.shouldClearData = false
+				self.delegate?.didUpdateData()
 			}
 			if newItems.isEmpty {
 				self.reachedEnd = true

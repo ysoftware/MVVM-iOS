@@ -16,7 +16,7 @@ public protocol Query {
 	var isPaginationEnabled: Bool { get }
 
 	/// Размер загружаемого при пагинации списка.
-	var size: Int { get }
+	var size: UInt { get }
 
 	/// Сбросить позицию пагинации.
 	func resetPosition()
@@ -32,5 +32,5 @@ public extension Query {
 
 	var isPaginationEnabled: Bool { return true }
 
-	var size: Int { return 20 }
+	var size: UInt { return 20 }
 }
