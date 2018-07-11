@@ -13,9 +13,11 @@ import Foundation
 public protocol Query {
 
 	/// Использовать ли пагинацию.
+	/// Стандартное значение - `true`.
 	var isPaginationEnabled: Bool { get }
 
 	/// Размер загружаемого при пагинации списка.
+	/// Стандартное значение - 20.
 	var size: UInt { get }
 
 	/// Сбросить позицию пагинации.
@@ -24,7 +26,12 @@ public protocol Query {
 	/// Продвинуться вперёд по списку.
 	/// ```
 	/// // Например,
-	/// page += 1
+	/// func advance() {
+	///     page += 1
+	/// }
+	/// ```
+	/// Если ваш query нуждается в информации, полученной из сетевого запроса,
+	/// Пропустите advance() и вручную обновляйте query внутри метода ArrayViewModel.fetchData.
 	func advance()
 }
 
@@ -33,4 +40,6 @@ public extension Query {
 	var isPaginationEnabled: Bool { return true }
 
 	var size: UInt { return 20 }
+
+	func advance() {}
 }
