@@ -11,7 +11,7 @@ import Foundation
 open class SimpleArrayViewModel<M, VM:ViewModel<M>>: ArrayViewModel<M, VM, SimpleQuery> {
 
 	final override public func fetchData(_ query: SimpleQuery?,
-										 _ block: @escaping (_ data:[M]) -> Void) {
+										 _ block: @escaping (_ data:[M], _ error: Error?) -> Void) {
 		fetchData(block)
 	}
 
@@ -20,7 +20,8 @@ open class SimpleArrayViewModel<M, VM:ViewModel<M>>: ArrayViewModel<M, VM, Simpl
 	/// - Parameters:
 	///   - block: блок, в который необходимо отправить загруженные объекты.
 	///	  - data: список объектов класса модели, полученный из базы данных.
-	open func fetchData(_ block: @escaping (_ data:[M])->Void) {
+	///	  - error: ошибка при загрузке данных.
+	open func fetchData(_ block: @escaping (_ data:[M], _ error: Error?)->Void) {
 		fatalError("override ArrayViewModel.fetchData(_:)")
 	}
 }

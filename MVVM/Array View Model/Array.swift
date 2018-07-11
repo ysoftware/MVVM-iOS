@@ -17,12 +17,6 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 
 	// MARK: - Public properties
 
-	/// Загружен ли последний элемент в список.
-	public private(set) var reachedEnd = false
-
-	/// Идёт ли процесс загрузки данных.
-	public fileprivate(set) var isLoading = false
-
 	/// Объект получающий сигналы об изменении данных.
 	public weak var delegate:ArrayViewModelDelegate? {
 		didSet {
@@ -35,10 +29,17 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 	/// Если запрос nil, пагинация отключена.
 	public var query:Q?
 
-	// MARK: - Private properties
-
 	/// Список view model.
 	public private(set) var array:[VM] = []
+
+	/// Текущий статус процессов внутри array view model.
+	public private(set) var state:ArrayViewModelState = .initial {
+		didSet {
+			DispatchQueue.main.async {
+				self.delegate?.didChangeState(to: self.state)
+			}
+		}
+	}
 
 	/// Нужно ли очистить данные при следующей загрузке.
 	/// Защищает от крэша.
@@ -52,7 +53,8 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 	///   - query: объект query для настройки запроса к базе.
 	///   - block: блок, в который необходимо отправить загруженные объекты.
 	///	  - data: список объектов класса модели, полученный из базы данных.
-	open func fetchData(_ query:Q?, _ block: @escaping (_ data:[M])->Void) {
+	///	  - error: ошибка при загрузке данных.
+	open func fetchData(_ query:Q?, _ block: @escaping (_ data:[M], _ error:Error?)->Void) {
 		fatalError("override ArrayViewModel.fetchData(_:_:)")
 	}
 
@@ -60,17 +62,24 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 
 	/// Загрузить больше элементов.
 	public func loadMore() {
-		guard !isLoading && !reachedEnd else { return }
-		isLoading = true
+		switch state {
+		case .loading, .loadingMore, .ready(true): return
+		default: break
+		}
+
+		state.setLoading()
 		
-		fetchData(query) { items in
-			if self.query == nil
-				|| !self.query!.isPaginationEnabled
-				|| items.count < self.query!.size {
-				self.reachedEnd = true
+		fetchData(query) { items, error in
+			if let error = error {
+				return self.state.setError(error)
 			}
+
+			let reachedEnd = self.query == nil
+				|| !self.query!.isPaginationEnabled
+				|| items.count < self.query!.size
+
 			self.manageItems(items)
-			self.isLoading = false
+			self.state.setReady(reachedEnd)
 		}
 		query?.advance()
 	}
@@ -97,24 +106,20 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 				self.shouldClearData = false
 				self.delegate?.didUpdateData()
 			}
-			if newItems.isEmpty {
-				self.reachedEnd = true
+
+			let isFirstLoad = self.array.isEmpty
+			self.array.append(contentsOf: newItems.map { VM($0) })
+			self.array.forEach { $0.delegate = self }
+
+			// notify
+			if isFirstLoad {
+				self.delegate?.didUpdateData()
 			}
 			else {
-				let isFirstLoad = self.array.isEmpty
-				self.array.append(contentsOf: newItems.map { VM($0) })
-				self.array.forEach { $0.delegate = self }
-
-				// notify
-				if isFirstLoad {
-					self.delegate?.didUpdateData()
-				}
-				else {
-					let endIndex = self.array.endIndex
-					let startIndex = endIndex - newItems.count
-					let indexes = (startIndex..<endIndex).map { $0 }
-					self.delegate?.didAddElements(at: indexes)
-				}
+				let endIndex = self.array.endIndex
+				let startIndex = endIndex - newItems.count
+				let indexes = (startIndex..<endIndex).map { $0 }
+				self.delegate?.didAddElements(at: indexes)
 			}
 		}
 	}
@@ -123,9 +128,9 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 
 	/// Очистить данные и сбросить информацию о загрузке.
 	private func resetData() {
+		state.reset()
 		shouldClearData = true
 		query?.resetPosition()
-		reachedEnd = false
 	}
 
 	// MARK: - Operations

@@ -71,6 +71,9 @@ public protocol ArrayViewModelDelegate: class {
 	///   to: IndexPath(row: newIndex,
 	///               section: 0))
 	func didMoveElement(at startIndex:Int, to endIndex:Int)
+
+	/// ArrayViewModel изменил статус.
+	func didChangeState(to state:ArrayViewModelState)
 }
 
 public extension ArrayViewModelDelegate {
@@ -84,4 +87,6 @@ public extension ArrayViewModelDelegate {
 	func didMoveElement(at startIndex:Int, to endIndex:Int) {}
 
 	func didUpdateData() {}
+
+	func didChangeState(to state:ArrayViewModelState) {}
 }
