@@ -73,6 +73,8 @@ public protocol ArrayViewModelDelegate: class {
 	func didMoveElement(at startIndex:Int, to endIndex:Int)
 
 	/// ArrayViewModel изменил статус.
+	///
+	/// - Parameter state: новый статус процессов внутри array view model.
 	func didChangeState(to state:ArrayViewModelState)
 }
 

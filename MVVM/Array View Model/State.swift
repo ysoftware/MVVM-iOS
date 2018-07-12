@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Статус процессов внутри array view model.
 public enum ArrayViewModelState {
 
 	case
@@ -17,6 +18,38 @@ public enum ArrayViewModelState {
 	ready(reachedEnd:Bool),		// успех
 	loadingMore,				// идет загрузка пагинации
 	paginationError(Error)		// ошибка пагинации - есть старые данные
+
+	/// Установить `.initial`
+	mutating func reset() {
+		self = .initial
+	}
+
+	/// Установить `.ready`
+	///
+	/// - Parameter reachedEnd: достигли ли мы конца списка.
+	mutating func setReady(_ reachedEnd:Bool) {
+		self = .ready(reachedEnd: reachedEnd)
+	}
+
+	/// Установить `.loading` / `.loadingMore` в зависимости от текущего статуса.
+	mutating func setLoading() {
+		if self == .initial {
+			self = .loading
+		}
+		else {
+			self = .loadingMore
+		}
+	}
+
+	/// Установить `.error` / `.paginationError` в зависимости от текущего статуса.
+	mutating func setError(_ error:Error) {
+		if self == .loading {
+			self = .error(error)
+		}
+		else {
+			self = .paginationError(error)
+		}
+	}
 }
 
 extension ArrayViewModelState: Equatable {
@@ -28,35 +61,6 @@ extension ArrayViewModelState: Equatable {
 		case (.loadingMore, .loadingMore): return true
 		case (.ready(let value), .ready(let value2)) : return value == value2
 		default: return false
-		}
-	}
-}
-
-extension ArrayViewModelState {
-
-	mutating func reset() {
-		self = .initial
-	}
-
-	mutating func setReady(_ reachedEnd:Bool) {
-		self = .ready(reachedEnd: reachedEnd)
-	}
-
-	mutating func setLoading() {
-		if self == .initial {
-			self = .loading
-		}
-		else {
-			self = .loadingMore
-		}
-	}
-
-	mutating func setError(_ error:Error) {
-		if self == .loading {
-			self = .error(error)
-		}
-		else {
-			self = .paginationError(error)
 		}
 	}
 }

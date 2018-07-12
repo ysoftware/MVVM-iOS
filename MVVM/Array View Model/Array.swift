@@ -49,7 +49,7 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 	private var shouldClearData = false
 
 	/// Счётчик загрузок для отмены одновременных загрузок.
-	private var loadCount = 0
+	private var loadOperationsCount = 0
 
 	// MARK: - Public methods for override
 
@@ -83,14 +83,14 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 
 		state.setLoading()
 
-		loadCount += 1
-		if loadCount > 1, cancelLoadOperation() {
-			self.loadCount -= 1
+		loadOperationsCount += 1
+		if loadOperationsCount > 1, cancelLoadOperation() {
+			loadOperationsCount -= 1
 		}
 
-		self.fetchData(self.query) { items, error in
-			self.loadCount -= 1
-			guard self.loadCount == 0 else { return }
+		fetchData(query) { items, error in
+			self.loadOperationsCount -= 1
+			guard self.loadOperationsCount == 0 else { return }
 
 			if let error = error {
 				return self.state.setError(error)
@@ -103,7 +103,7 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 			self.manageItems(items)
 			self.state.setReady(reachedEnd)
 		}
-		self.query?.advance()
+		query?.advance()
 	}
 
 	/// Сбросить все данные и загрузить с начала списка.
