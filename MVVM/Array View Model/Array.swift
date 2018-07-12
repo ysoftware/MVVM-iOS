@@ -20,8 +20,11 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 	/// Объект получающий сигналы об изменении данных.
 	public weak var delegate:ArrayViewModelDelegate? {
 		didSet {
-			if !array.isEmpty {
-				delegate?.didUpdateData()
+			DispatchQueue.main.async {
+				if !self.array.isEmpty {
+					self.delegate?.didChangeState(to: self.state)
+					self.delegate?.didUpdateData()
+				}
 			}
 		}
 	}
