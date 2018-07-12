@@ -48,6 +48,9 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 	/// Защищает от крэша.
 	private var shouldClearData = false
 
+	/// Счётчик загрузок для отмены одновременных загрузок.
+	private var loadCount = 0
+
 	// MARK: - Public methods for override
 
 	/// Метод для загрузки данных из базы данных. Обязателен к оверрайду.
@@ -61,6 +64,14 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 		fatalError("override ArrayViewModel.fetchData(_:_:)")
 	}
 
+	/// Метод для отмены текущей операции загрузки данных.
+	/// Решает проблему с множественным вызовом `.reloadData()`.
+	///
+	/// - Returns: true если операция отменена.
+	open func cancelLoadOperation() -> Bool {
+		return false
+	}
+
 	// MARK: - Public methods
 
 	/// Загрузить больше элементов.
@@ -71,8 +82,16 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 		}
 
 		state.setLoading()
-		
-		fetchData(query) { items, error in
+
+		loadCount += 1
+		if loadCount > 1, cancelLoadOperation() {
+			self.loadCount -= 1
+		}
+
+		self.fetchData(self.query) { items, error in
+			self.loadCount -= 1
+			guard self.loadCount == 0 else { return }
+
 			if let error = error {
 				return self.state.setError(error)
 			}
@@ -84,7 +103,7 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 			self.manageItems(items)
 			self.state.setReady(reachedEnd)
 		}
-		query?.advance()
+		self.query?.advance()
 	}
 
 	/// Сбросить все данные и загрузить с начала списка.
