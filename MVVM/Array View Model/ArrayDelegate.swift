@@ -14,6 +14,11 @@ public protocol ArrayViewModelDelegate: class {
 	/// - Parameter state: новый статус процессов внутри array view model.
 	func didChangeState(to state:ArrayViewModelState)
 
+	/// ArrayViewModel обновил данные.
+	///
+	/// - Parameters:
+	///   - arrayViewModel: объект arrayViewModel.
+	///   - update: информация об обновлении данных.
 	func didUpdateData<M, VM, Q>(_ arrayViewModel: ArrayViewModel<M, VM, Q>,
 								 _ update: Update) where Q:Query
 }
@@ -23,9 +28,8 @@ public extension ArrayViewModelDelegate {
 	func didChangeState(to state:ArrayViewModelState) {}
 }
 
-// MARK: - Простейший делегат для array view model для управления tableView / collectionView.
-
-public class DefaultArrayViewModelDelegate: ArrayViewModelDelegate {
+/// Простейший делегат для array view model для управления tableView / collectionView.
+public class ArrayViewModelUpdateHandler {
 
 	private weak var tableView:UITableView?
 	private weak var collectionView:UICollectionView?
@@ -40,9 +44,7 @@ public class DefaultArrayViewModelDelegate: ArrayViewModelDelegate {
 		self.collectionView = collectionView
 	}
 
-	public func didUpdateData<M, VM, Q>(_ arrayViewModel: ArrayViewModel<M, VM, Q>,
-										_ update: Update)
-		where M : Equatable, VM : ViewModel<M>, Q : Query {
+	public func handle(_ update: Update) {
 
 			switch update {
 			case .reload:
