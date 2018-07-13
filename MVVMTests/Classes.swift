@@ -11,7 +11,7 @@ import Foundation
 
 let data = [TestModel(0), TestModel(1), TestModel(2), TestModel(3),  TestModel(4),  TestModel(5)]
 
-class TestQuery:Query {
+final class TestQuery:Query {
 
 	var offset:Int { return page*size }
 
@@ -30,7 +30,7 @@ class TestQuery:Query {
 	}
 }
 
-class TestModel:NSObject {
+final class TestModel:NSObject {
 	
 	var number:Int
 
@@ -39,7 +39,7 @@ class TestModel:NSObject {
 	}
 }
 
-class TestArrayViewModelDelegate: ArrayViewModelDelegate {
+final class TestArrayViewModelDelegate: ArrayViewModelDelegate {
 
 	var didUpdate = false
 	var didUpdateElement = false
@@ -68,7 +68,7 @@ class TestArrayViewModelDelegate: ArrayViewModelDelegate {
 	}
 }
 
-class TestViewModel:ViewModel<TestModel> {
+final class TestViewModel:ViewModel<TestModel> {
 
 	// properties
 	var number:Int { return model?.number ?? 0 }
@@ -79,17 +79,20 @@ class TestViewModel:ViewModel<TestModel> {
 	}
 }
 
-class TestArrayViewModel: ArrayViewModel<TestModel, TestViewModel, TestQuery> {
+final class TestError: LocalizedError {
+	var errorDescription: String? { return "пример ошибки" }
+}
 
-	override func fetchData(_ query: TestQuery?, _ block: @escaping ([TestModel])->Void) {
+final class TestArrayViewModel: ArrayViewModel<TestModel, TestViewModel, TestQuery> {
+
+	override func fetchData(_ query: TestQuery?, _ block: @escaping ([TestModel], Error?)->Void) {
 		if let query = query, query.isPaginationEnabled {
 			let startIndex = data.startIndex.advanced(by: query.offset)
 			let endIndex = min(startIndex.advanced(by: query.size), data.endIndex)
-			block(Array(data[startIndex..<endIndex]))
+			block(Array(data[startIndex..<endIndex]), TestError())
 		}
 		else {
-			block(data)
+			block(data, nil)
 		}
 	}
-
 }

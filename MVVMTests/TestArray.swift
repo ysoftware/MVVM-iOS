@@ -9,7 +9,7 @@
 import XCTest
 @testable import MVVM
 
-class TestsArrayViewModel: XCTestCase {
+final class TestsArrayViewModel: XCTestCase {
 
 	func testDelegate() {
 
@@ -143,7 +143,8 @@ class TestsArrayViewModel: XCTestCase {
 						XCTAssertEqual(item5.number, 5, "wrong element")
 
 						// test reached end
-						XCTAssertTrue(array.reachedEnd, "did not reach end?")
+						XCTAssertTrue(array.state == ArrayViewModelState.ready(reachedEnd:true),
+									  "did not reach end?")
 
 						// test reached end not trying to load more
 						let count4 = array.numberOfItems
