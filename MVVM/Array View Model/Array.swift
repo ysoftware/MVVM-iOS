@@ -23,7 +23,7 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 			DispatchQueue.main.async {
 				if !self.array.isEmpty {
 					self.delegate?.didChangeState(to: self.state)
-					self.delegate?.didUpdateData()
+					self.delegate?.didUpdateData(self, .reload)
 				}
 			}
 		}
@@ -126,7 +126,7 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 			if self.shouldClearData {
 				self.array = []
 				self.shouldClearData = false
-				self.delegate?.didUpdateData()
+				self.delegate?.didUpdateData(self, .reload)
 			}
 
 			let isFirstLoad = self.array.isEmpty
@@ -135,13 +135,13 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 
 			// notify
 			if isFirstLoad {
-				self.delegate?.didUpdateData()
+				self.delegate?.didUpdateData(self, .reload)
 			}
 			else {
 				let endIndex = self.array.endIndex
 				let startIndex = endIndex - newItems.count
 				let indexes = (startIndex..<endIndex).map { $0 }
-				self.delegate?.didAddElements(at: indexes)
+				self.delegate?.didUpdateData(self, .append(indexes: indexes))
 			}
 		}
 	}
@@ -164,7 +164,7 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 		DispatchQueue.main.async {
 			self.array.append(element)
 			element.arrayDelegate = self
-			self.delegate?.didAddElements(at: [self.array.endIndex-1])
+			self.delegate?.didUpdateData(self, .append(indexes: [self.array.endIndex-1]))
 		}
 	}
 
@@ -195,7 +195,7 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 	public func notifyUpdated(_ viewModel: VM) {
 		guard let index = array.index(of: viewModel) else { return }
 		DispatchQueue.main.async {
-			self.delegate?.didUpdateElements(at: [index])
+			self.delegate?.didUpdateData(self, .update(indexes: [index]))
 		}
 	}
 
@@ -208,7 +208,7 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 		// ошибка tableView inconsistency
 		DispatchQueue.main.async {
 			self.array.remove(at: index)
-			self.delegate?.didDeleteElements(at: [index])
+			self.delegate?.didUpdateData(self, .delete(indexes: [index]))
 		}
 	}
 
@@ -222,7 +222,7 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 		DispatchQueue.main.async {
 			let newIndex = min(newIndex, self.array.endIndex-1)
 			self.array.insert(self.array.remove(at: index), at: newIndex)
-			self.delegate?.didMoveElement(at: index, to: newIndex)
+			self.delegate?.didUpdateData(self, .move(startIndex:index, endIndex: newIndex))
 		}
 	}
 }

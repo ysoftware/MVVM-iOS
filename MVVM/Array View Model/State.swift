@@ -11,13 +11,23 @@ import Foundation
 /// Статус процессов внутри array view model.
 public enum ArrayViewModelState {
 
-	case
-	initial,					// начало инициализации
-	loading, 					// загрузка с начала
-	error(Error),				// ошибка - данных нет
-	ready(reachedEnd:Bool),		// успех
-	loadingMore,				// идет загрузка пагинации
-	paginationError(Error)		// ошибка пагинации - есть старые данные
+	/// Пустой view model.
+	case initial
+
+	/// Идёт первоначальная загрузка.
+	case loading
+
+	/// Ошибка при первоначальной загрузке.
+	case error(Error)
+
+	/// Данные загружены.
+	case ready(reachedEnd:Bool)
+
+	/// Идёт подгрузка данных.
+	case loadingMore
+
+	/// Ошибка при загрузке второго или последующего блока данных при пагинации.
+	case paginationError(Error)
 
 	/// Установить `.initial`
 	mutating func reset() {
