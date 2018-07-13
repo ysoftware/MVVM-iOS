@@ -131,7 +131,7 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 
 			let isFirstLoad = self.array.isEmpty
 			self.array.append(contentsOf: newItems.map { VM($0) })
-			self.array.forEach { $0.delegate = self }
+			self.array.forEach { $0.arrayDelegate = self }
 
 			// notify
 			if isFirstLoad {
@@ -163,6 +163,7 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 	public func append(_ element:VM) {
 		DispatchQueue.main.async {
 			self.array.append(element)
+			element.arrayDelegate = self
 			self.delegate?.didAddElements(at: [self.array.endIndex-1])
 		}
 	}
