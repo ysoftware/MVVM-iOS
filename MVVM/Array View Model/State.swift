@@ -11,6 +11,8 @@ import Foundation
 /// Статус процессов внутри array view model.
 public enum ArrayViewModelState {
 
+	// MARK: - Cases
+
 	/// Пустой view model.
 	case initial
 
@@ -18,7 +20,7 @@ public enum ArrayViewModelState {
 	case loading
 
 	/// Ошибка при первоначальной загрузке.
-	case error(Error)
+	case error(error:Error)
 
 	/// Данные загружены.
 	case ready(reachedEnd:Bool)
@@ -27,7 +29,9 @@ public enum ArrayViewModelState {
 	case loadingMore
 
 	/// Ошибка при загрузке второго или последующего блока данных при пагинации.
-	case paginationError(Error)
+	case paginationError(error:Error)
+
+	// MARK: - Methods
 
 	/// Установить `.initial`
 	mutating func reset() {
@@ -54,10 +58,10 @@ public enum ArrayViewModelState {
 	/// Установить `.error` / `.paginationError` в зависимости от текущего статуса.
 	mutating func setError(_ error:Error) {
 		if self == .loading {
-			self = .error(error)
+			self = .error(error: error)
 		}
 		else {
-			self = .paginationError(error)
+			self = .paginationError(error: error)
 		}
 	}
 }

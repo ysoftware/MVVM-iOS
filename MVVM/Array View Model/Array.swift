@@ -44,6 +44,13 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 		}
 	}
 
+	/// Текущее количество элементов в списке.
+	public var numberOfItems:Int {
+		return array.count
+	}
+
+	// MARK: - Private properties
+
 	/// Нужно ли очистить данные при следующей загрузке.
 	/// Защищает от крэша.
 	private var shouldClearData = false
@@ -166,11 +173,6 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 			element.arrayDelegate = self
 			self.delegate?.didUpdateData(self, .append(indexes: [self.array.endIndex-1]))
 		}
-	}
-
-	/// Текущее количество элементов в списке.
-	public var numberOfItems:Int {
-		return array.count
 	}
 
 	/// Получить элемент по индексу.

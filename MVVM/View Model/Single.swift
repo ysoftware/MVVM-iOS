@@ -17,7 +17,8 @@ open class ViewModel<M:Equatable> {
 
 	// MARK: - Public properties
 
-	typealias Model = M
+	/// Может быть nil если данные загружаются внутри view model.
+	public var model:M?
 
 	/// Объект, получающий события view model.
 	public weak var delegate:ViewModelDelegate? {
@@ -28,16 +29,13 @@ open class ViewModel<M:Equatable> {
 		}
 	}
 
-	/// Может быть nil если данные загружаются внутри view model.
-	public var model:M?
-
 	// MARK: - Inner properties
 
 	/// Специальный делегат для array view model.
 	weak var arrayDelegate:ViewModelDelegate? {
 		didSet {
 			if model != nil {
-				delegate?.didUpdateData(self)
+				arrayDelegate?.didUpdateData(self)
 			}
 		}
 	}

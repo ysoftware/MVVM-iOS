@@ -31,6 +31,8 @@ public extension ArrayViewModelDelegate {
 /// Простейший делегат для array view model для управления tableView / collectionView.
 public class ArrayViewModelUpdateHandler {
 
+	private init() { }
+
 	private weak var tableView:UITableView?
 	private weak var collectionView:UICollectionView?
 

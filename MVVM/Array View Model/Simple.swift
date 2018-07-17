@@ -32,6 +32,4 @@ public class SimpleQuery:Query {
 	public var isPaginationEnabled = false
 
 	public func resetPosition() {}
-
-	public func advance() {}
 }
