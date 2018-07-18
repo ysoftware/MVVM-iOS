@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7109024620FF3EF6007DE01B /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109024520FF3EF6007DE01B /* Result.swift */; };
 		7119BE7E20F0997400B758E2 /* TestArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132E2F220ECC554002861F8 /* TestArray.swift */; };
 		7132E2E020ECBE6F002861F8 /* MVVM.h in Headers */ = {isa = PBXBuildFile; fileRef = 7132E2DE20ECBE6F002861F8 /* MVVM.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7132E2E920ECBEC5002861F8 /* Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132E2E820ECBEC5002861F8 /* Single.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7109024520FF3EF6007DE01B /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		7132E2DB20ECBE6F002861F8 /* MVVM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MVVM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7132E2DE20ECBE6F002861F8 /* MVVM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MVVM.h; sourceTree = "<group>"; };
 		7132E2DF20ECBE6F002861F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				7196200120F1183100CB240C /* Simple.swift */,
 				71EF75D920F62D51000537FC /* State.swift */,
 				7195415520F8D0B7008B92CC /* Update.swift */,
+				7109024520FF3EF6007DE01B /* Result.swift */,
 			);
 			path = "Array View Model";
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 				7195415620F8D0B7008B92CC /* Update.swift in Sources */,
 				7196200320F1183100CB240C /* Array.swift in Sources */,
 				7196200220F1183100CB240C /* Query.swift in Sources */,
+				7109024620FF3EF6007DE01B /* Result.swift in Sources */,
 				7132E2E920ECBEC5002861F8 /* Single.swift in Sources */,
 				7196200620F1183100CB240C /* Extensions.swift in Sources */,
 				71EF75DA20F62D51000537FC /* State.swift in Sources */,

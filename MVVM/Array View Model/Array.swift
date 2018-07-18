@@ -67,8 +67,8 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 	///   - block: блок, в который необходимо отправить загруженные объекты.
 	///	  - data: список объектов класса модели, полученный из базы данных.
 	///	  - error: ошибка при загрузке данных.
-	open func fetchData(_ query:Q?, _ block: @escaping (_ data:[M], _ error:Error?)->Void) {
-		fatalError("override ArrayViewModel.fetchData(_:_:)")
+	open func fetchData(_ query:Q?, _ block: @escaping (_ result:Result<[M]>)->Void) {
+		fatalError("override ArrayViewModel.fetchData(_:)")
 	}
 
 	/// Метод для отмены текущей операции загрузки данных.
@@ -95,20 +95,21 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 			loadOperationsCount -= 1
 		}
 
-		fetchData(query) { items, error in
+		fetchData(query) { result in
 			self.loadOperationsCount -= 1
 			guard self.loadOperationsCount == 0 else { return }
 
-			if let error = error {
-				return self.state.setError(error)
+			switch result {
+			case .error(let error):
+				self.state.setError(error)
+			case .data(let items):
+				let reachedEnd = self.query == nil
+					|| !self.query!.isPaginationEnabled
+					|| items.count < self.query!.size
+
+				self.manageItems(items)
+				self.state.setReady(reachedEnd)
 			}
-
-			let reachedEnd = self.query == nil
-				|| !self.query!.isPaginationEnabled
-				|| items.count < self.query!.size
-
-			self.manageItems(items)
-			self.state.setReady(reachedEnd)
 		}
 		query?.advance()
 	}
