@@ -14,6 +14,8 @@
 		7132E2F520ECC554002861F8 /* MVVM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7132E2DB20ECBE6F002861F8 /* MVVM.framework */; };
 		7132E2FC20ECC55D002861F8 /* Classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132E2FB20ECC55D002861F8 /* Classes.swift */; };
 		71493E8120EFBA1D00E579C1 /* MVVM.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 71493E8020EFBA1D00E579C1 /* MVVM.podspec */; };
+		71706EF1210B452700C95121 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71706EF0210B452700C95121 /* String.swift */; };
+		71706EF3210B468800C95121 /* UpdateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71706EF2210B468800C95121 /* UpdateHandler.swift */; };
 		7195415620F8D0B7008B92CC /* Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7195415520F8D0B7008B92CC /* Update.swift */; };
 		71961FFA20F1171600CB240C /* SingleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71961FF920F1171600CB240C /* SingleDelegate.swift */; };
 		7196200220F1183100CB240C /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71961FFC20F1183100CB240C /* Query.swift */; };
@@ -45,6 +47,9 @@
 		7132E2F420ECC554002861F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7132E2FB20ECC55D002861F8 /* Classes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classes.swift; sourceTree = "<group>"; };
 		71493E8020EFBA1D00E579C1 /* MVVM.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MVVM.podspec; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		71706EF0210B452700C95121 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		71706EF2210B468800C95121 /* UpdateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateHandler.swift; sourceTree = "<group>"; };
+		71706EF5210B46C800C95121 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7195415520F8D0B7008B92CC /* Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Update.swift; sourceTree = "<group>"; };
 		71961FF920F1171600CB240C /* SingleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleDelegate.swift; sourceTree = "<group>"; };
 		71961FFC20F1183100CB240C /* Query.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
@@ -80,6 +85,7 @@
 				7132E2DD20ECBE6F002861F8 /* MVVM */,
 				7132E2F120ECC554002861F8 /* MVVMTests */,
 				7132E2DC20ECBE6F002861F8 /* Products */,
+				71706EF4210B46C800C95121 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -114,6 +120,14 @@
 			path = MVVMTests;
 			sourceTree = "<group>";
 		};
+		71706EF4210B46C800C95121 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				71706EF5210B46C800C95121 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		71961FF820F116FF00CB240C /* View Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,9 +145,11 @@
 				71961FFE20F1183100CB240C /* ArrayDelegate.swift */,
 				7196200020F1183100CB240C /* Extensions.swift */,
 				7196200120F1183100CB240C /* Simple.swift */,
+				71706EF0210B452700C95121 /* String.swift */,
 				71EF75D920F62D51000537FC /* State.swift */,
 				7195415520F8D0B7008B92CC /* Update.swift */,
 				7109024520FF3EF6007DE01B /* Result.swift */,
+				71706EF2210B468800C95121 /* UpdateHandler.swift */,
 			);
 			path = "Array View Model";
 			sourceTree = "<group>";
@@ -249,11 +265,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				7196200720F1183100CB240C /* Simple.swift in Sources */,
+				71706EF1210B452700C95121 /* String.swift in Sources */,
 				71961FFA20F1171600CB240C /* SingleDelegate.swift in Sources */,
 				7196200420F1183100CB240C /* ArrayDelegate.swift in Sources */,
 				7195415620F8D0B7008B92CC /* Update.swift in Sources */,
 				7196200320F1183100CB240C /* Array.swift in Sources */,
 				7196200220F1183100CB240C /* Query.swift in Sources */,
+				71706EF3210B468800C95121 /* UpdateHandler.swift in Sources */,
 				7109024620FF3EF6007DE01B /* Result.swift in Sources */,
 				7132E2E920ECBEC5002861F8 /* Single.swift in Sources */,
 				7196200620F1183100CB240C /* Extensions.swift in Sources */,

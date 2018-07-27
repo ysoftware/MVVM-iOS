@@ -47,24 +47,22 @@ final class TestArrayViewModelDelegate: ArrayViewModelDelegate {
 	var didMoveElement = false
 	var didDeleteElement = false
 
-	func didUpdateData() {
-		didUpdate = true
-	}
+	func didUpdateData<M, VM, Q>(_ arrayViewModel: ArrayViewModel<M, VM, Q>, _ update: Update)
+		where M : Equatable, VM : ViewModel<M>, Q : Query {
+			
+			switch update {
+			case .append(_):
+				didAddElement = true
+			case .delete(_):
+				didDeleteElement = true
+			case .move(_):
+				didMoveElement = true
+			case .reload:
+				didUpdateElement = true
+			case .update(_):
+				didUpdate = true
 
-	func didAddElements(at indexes: [Int]) {
-		didAddElement = true
-	}
-
-	func didDeleteElements(at indexes: [Int]) {
-		didDeleteElement = true
-	}
-
-	func didUpdateElements(at indexes: [Int]) {
-		didUpdateElement = true 
-	}
-
-	func didMoveElement(at startIndex: Int, to endIndex: Int) {
-		didMoveElement = true
+			}
 	}
 }
 
@@ -85,14 +83,14 @@ final class TestError: LocalizedError {
 
 final class TestArrayViewModel: ArrayViewModel<TestModel, TestViewModel, TestQuery> {
 
-	override func fetchData(_ query: TestQuery?, _ block: @escaping ([TestModel], Error?)->Void) {
+	override func fetchData(_ query: TestQuery?, _ block: @escaping (Result<[TestModel]>)->Void) {
 		if let query = query, query.isPaginationEnabled {
 			let startIndex = data.startIndex.advanced(by: query.offset)
 			let endIndex = min(startIndex.advanced(by: query.size), data.endIndex)
-			block(Array(data[startIndex..<endIndex]), TestError())
+			block(.data(Array(data[startIndex..<endIndex])))
 		}
 		else {
-			block(data, nil)
+			block(.error(TestError()))
 		}
 	}
 }
