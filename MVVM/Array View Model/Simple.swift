@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import Result
 
 /// Основной класс для управления списками данных без пагинации.
 open class SimpleArrayViewModel<M, VM:ViewModel<M>>: ArrayViewModel<M, VM, SimpleQuery> {
 
 	final override public func fetchData(_ query: SimpleQuery?,
-										 _ block: @escaping (_ result:Result<[M]>) -> Void) {
+										 _ block: @escaping (_ result:Result<[M], AnyError>) -> Void) {
 		fetchData(block)
 	}
 
@@ -21,7 +22,7 @@ open class SimpleArrayViewModel<M, VM:ViewModel<M>>: ArrayViewModel<M, VM, Simpl
 	///   - block: блок, в который необходимо отправить загруженные объекты.
 	///	  - data: список объектов класса модели, полученный из базы данных.
 	///	  - error: ошибка при загрузке данных.
-	open func fetchData(_ block: @escaping (_ result:Result<[M]>)->Void) {
+	open func fetchData(_ block: @escaping (_ result:Result<[M], AnyError>)->Void) {
 		fatalError("override ArrayViewModel.fetchData(_:)")
 	}
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Result
 @testable import MVVM
 
 let data = [TestModel(0), TestModel(1), TestModel(2), TestModel(3),  TestModel(4),  TestModel(5)]
@@ -83,14 +84,14 @@ final class TestError: LocalizedError {
 
 final class TestArrayViewModel: ArrayViewModel<TestModel, TestViewModel, TestQuery> {
 
-	override func fetchData(_ query: TestQuery?, _ block: @escaping (Result<[TestModel]>)->Void) {
+	override func fetchData(_ query: TestQuery?, _ block: @escaping (Result<[TestModel], AnyError>)->Void) {
 		if let query = query, query.isPaginationEnabled {
 			let startIndex = data.startIndex.advanced(by: query.offset)
 			let endIndex = min(startIndex.advanced(by: query.size), data.endIndex)
-			block(.data(Array(data[startIndex..<endIndex])))
+			block(.success(Array(data[startIndex..<endIndex])))
 		}
 		else {
-			block(.error(TestError()))
+			block(.failure(AnyError(TestError())))
 		}
 	}
 }

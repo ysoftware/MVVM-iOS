@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Result
 
 open class StringArrayViewModel: SimpleArrayViewModel<String, ViewModel<String>> {
 
@@ -18,8 +19,8 @@ open class StringArrayViewModel: SimpleArrayViewModel<String, ViewModel<String>>
 		reloadData()
 	}
 
-	final override func fetchData(_ block: @escaping (Result<[String]>) -> Void) {
-		block(Result.data(temp!))
+	final override public func fetchData(_ block: @escaping (Result<[String], AnyError>) -> Void) {
+		block(Result(temp!))
 		temp = nil
 	}
 
