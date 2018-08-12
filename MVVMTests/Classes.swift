@@ -62,7 +62,6 @@ final class TestArrayViewModelDelegate: ArrayViewModelDelegate {
 				didUpdateElement = true
 			case .update(_):
 				didUpdate = true
-
 			}
 	}
 }

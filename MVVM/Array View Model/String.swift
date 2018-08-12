@@ -20,7 +20,7 @@ open class StringArrayViewModel: SimpleArrayViewModel<String, ViewModel<String>>
 	}
 
 	final override public func fetchData(_ block: @escaping (Result<[String], AnyError>) -> Void) {
-		block(Result(temp!))
+		block(Result(temp))
 		temp = nil
 	}
 
