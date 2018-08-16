@@ -11,6 +11,8 @@ import Foundation
 /// Основной класс для управления данными.
 open class ViewModel<M:Equatable> {
 
+	public init() { }
+
 	public required init(_ model:M) {
 		self.model = model
 	}
