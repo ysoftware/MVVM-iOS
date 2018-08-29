@@ -13,7 +13,8 @@ open class ViewModel<M:Equatable> {
 
 	public init() { }
 
-	public required init(_ model:M) {
+	public required init(_ model:M, arrayDelegate:ViewModelDelegate? = nil) {
+		self.arrayDelegate = arrayDelegate
 		self.model = model
 	}
 
@@ -34,13 +35,7 @@ open class ViewModel<M:Equatable> {
 	// MARK: - Inner properties
 
 	/// Специальный делегат для array view model.
-	weak var arrayDelegate:ViewModelDelegate? {
-		didSet {
-			if model != nil {
-				arrayDelegate?.didUpdateData(self)
-			}
-		}
-	}
+	weak var arrayDelegate:ViewModelDelegate?
 
 	// MARK: - Public methods
 

@@ -139,8 +139,7 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 			}
 
 			let isFirstLoad = self.array.isEmpty
-			self.array.append(contentsOf: newItems.map { VM($0) })
-			self.array.forEach { $0.arrayDelegate = self }
+			self.array.append(contentsOf: newItems.map { VM($0, arrayDelegate: self) })
 
 			// notify
 			if isFirstLoad {
