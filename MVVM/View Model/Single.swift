@@ -21,7 +21,7 @@ open class ViewModel<M:Equatable> {
 	// MARK: - Public properties
 
 	/// Может быть nil если данные загружаются внутри view model.
-	public var model:M?
+	public private(set) var model:M?
 
 	/// Объект, получающий события view model.
 	public weak var delegate:ViewModelDelegate? {
@@ -35,7 +35,7 @@ open class ViewModel<M:Equatable> {
 	// MARK: - Inner properties
 
 	/// Специальный делегат для array view model.
-	weak var arrayDelegate:ViewModelDelegate?
+	public weak var arrayDelegate:ViewModelDelegate?
 
 	// MARK: - Public methods
 
@@ -43,7 +43,6 @@ open class ViewModel<M:Equatable> {
 		delegate?.didUpdateData(self)
 		arrayDelegate?.didUpdateData(self)
 	}
-
 }
 
 extension ViewModel: Equatable {
