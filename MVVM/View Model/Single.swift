@@ -21,7 +21,7 @@ open class ViewModel<M:Equatable> {
 	// MARK: - Public properties
 
 	/// Может быть nil если данные загружаются внутри view model.
-	public private(set) var model:M?
+	public var model:M?
 
 	/// Объект, получающий события view model.
 	public weak var delegate:ViewModelDelegate? {
