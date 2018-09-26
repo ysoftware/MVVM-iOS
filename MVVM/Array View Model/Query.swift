@@ -21,7 +21,7 @@ public protocol Query {
 	var size: UInt { get }
 
 	/// Сбросить позицию пагинации.
-	func resetPosition()
+	mutating func resetPosition()
 
 	/// Продвинуться вперёд по списку.
 	/// ```
@@ -32,7 +32,7 @@ public protocol Query {
 	/// ```
 	/// Если ваш query нуждается в информации, полученной из сетевого запроса,
 	/// Пропустите advance() и вручную обновляйте query внутри метода ArrayViewModel.fetchData.
-	func advance()
+	mutating func advance()
 }
 
 public extension Query {
