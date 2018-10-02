@@ -70,10 +70,14 @@ extension ArrayViewModelState: Equatable {
 
 	public static func == (lhs: ArrayViewModelState, rhs: ArrayViewModelState) -> Bool {
 		switch (lhs, rhs) {
-		case (.initial, .initial): return true
-		case (.loading, .loading): return true
-		case (.loadingMore, .loadingMore): return true
-		case (.ready(let value), .ready(let value2)) : return value == value2
+		case (.initial, .initial),
+			 (.loading, .loading),
+			 (.loadingMore, .loadingMore),
+			 (.error, .error),
+			 (.paginationError, .paginationError):
+			return true
+		case (.ready(let value), .ready(let value2)) :
+			return value == value2
 		default: return false
 		}
 	}
