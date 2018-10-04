@@ -18,6 +18,7 @@ public protocol Query {
 
 	/// Размер загружаемого при пагинации списка.
 	/// Стандартное значение - 20.
+	/// Если получено меньше элементов, считается, что мы достигли конца списка.
 	var size: UInt { get }
 
 	/// Сбросить позицию пагинации.
@@ -39,7 +40,7 @@ public extension Query {
 
 	var isPaginationEnabled: Bool { return true }
 
-	var size: UInt { return 20 }
+	var size: UInt { return 1 }
 
 	func advance() {}
 }
