@@ -130,7 +130,7 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 	/// Принять новые загруженные элементы в список.
 	///
 	/// - Parameter newItems: новые элементы.
-	public func manageItems(_ newItems:[M]) {
+	private func manageItems(_ newItems:[M]) {
 		DispatchQueue.main.async {
 			if self.shouldClearData {
 				self.array = []
@@ -164,6 +164,18 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 	}
 
 	// MARK: - Operations
+
+	/// Добвить элементы в список. Список будет завершённым (reachedEnd).
+	///
+	/// - Parameter data: новыйые объекты viewModel.
+	public func setData(_ data:[VM]) {
+		DispatchQueue.main.async {
+			self.array.append(contentsOf: data)
+			data.forEach { $0.arrayDelegate = self }
+			self.delegate?.didUpdateData(self, .reload)
+			self.state.setReady(true)
+		}
+	}
 
 	/// Добвить элемент в список.
 	///
