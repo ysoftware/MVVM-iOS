@@ -27,7 +27,9 @@ open class ViewModel<M:Equatable> {
 	public weak var delegate:ViewModelDelegate? {
 		didSet {
 			if model != nil {
-				delegate?.didUpdateData(self)
+				DispatchQueue.main.async {
+					self.delegate?.didUpdateData(self)
+				}
 			}
 		}
 	}
@@ -40,8 +42,10 @@ open class ViewModel<M:Equatable> {
 	// MARK: - Public methods
 
 	public func notifyUpdated() {
-		delegate?.didUpdateData(self)
-		arrayDelegate?.didUpdateData(self)
+		DispatchQueue.main.async {
+			self.delegate?.didUpdateData(self)
+			self.arrayDelegate?.didUpdateData(self)
+		}
 	}
 }
 
