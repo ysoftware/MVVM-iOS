@@ -50,6 +50,11 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 		return array.count
 	}
 
+	/// `true` if there are no elements added.
+	public var isEmpty:Bool {
+		return array.count == 0
+	}
+
 	// MARK: - Private properties
 
 	/// Нужно ли очистить данные при следующей загрузке.
