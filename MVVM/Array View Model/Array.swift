@@ -23,7 +23,7 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 		didSet {
 			DispatchQueue.main.async {
 				if !self.array.isEmpty {
-					self.delegate?.didChangeState(to: self.state)
+					self.delegate?.didChangeState(self, to: self.state)
 					self.delegate?.didUpdateData(self, .reload)
 				}
 			}
@@ -40,7 +40,7 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 	public private(set) var state:ArrayViewModelState = .initial {
 		didSet {
 			DispatchQueue.main.async {
-				self.delegate?.didChangeState(to: self.state)
+				self.delegate?.didChangeState(self, to: self.state)
 			}
 		}
 	}

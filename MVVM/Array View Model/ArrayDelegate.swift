@@ -12,7 +12,8 @@ public protocol ArrayViewModelDelegate: class {
 	/// ArrayViewModel изменил статус.
 	///
 	/// - Parameter state: новый статус процессов внутри array view model.
-	func didChangeState(to state:ArrayViewModelState)
+	func didChangeState<M, VM, Q>(_ arrayViewModel: ArrayViewModel<M, VM, Q>,
+								  to state:ArrayViewModelState)
 
 	/// ArrayViewModel обновил данные.
 	///

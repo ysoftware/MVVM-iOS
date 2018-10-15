@@ -48,7 +48,14 @@ final class TestArrayViewModelDelegate: ArrayViewModelDelegate {
 	var didMoveElement = false
 	var didDeleteElement = false
 
-	func didUpdateData<M, VM, Q>(_ arrayViewModel: ArrayViewModel<M, VM, Q>, _ update: Update)
+	func didChangeState<M, VM, Q>(_ arrayViewModel: ArrayViewModel<M, VM, Q>,
+								  to state: ArrayViewModelState)
+		where M : Equatable, VM : ViewModel<M>, Q : Query {
+
+	}
+
+	func didUpdateData<M, VM, Q>(_ arrayViewModel: ArrayViewModel<M, VM, Q>,
+								 _ update: Update)
 		where M : Equatable, VM : ViewModel<M>, Q : Query {
 			
 			switch update {
