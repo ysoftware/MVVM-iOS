@@ -13,7 +13,7 @@ public protocol ArrayViewModelDelegate: class {
 	///
 	/// - Parameter state: новый статус процессов внутри array view model.
 	func didChangeState<M, VM, Q>(_ arrayViewModel: ArrayViewModel<M, VM, Q>,
-								  to state:ArrayViewModelState)
+								  to state:ArrayViewModelState) where Q:Query
 
 	/// ArrayViewModel обновил данные.
 	///
@@ -26,5 +26,6 @@ public protocol ArrayViewModelDelegate: class {
 
 public extension ArrayViewModelDelegate {
 
-	func didChangeState(to state:ArrayViewModelState) {}
+	func didChangeState<M, VM, Q>(_ arrayViewModel: ArrayViewModel<M, VM, Q>,
+								  to state:ArrayViewModelState) where Q:Query {}
 }
