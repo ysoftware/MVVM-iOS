@@ -107,6 +107,7 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 
 			switch result {
 			case .failure(let error):
+				self.manageItems([])
 				self.state.setError(error)
 			case .success(let items):
 				let reachedEnd = self.query == nil
