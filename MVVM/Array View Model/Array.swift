@@ -150,7 +150,6 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 			if self.shouldClearData {
 				self.array = []
 				self.shouldClearData = false
-				self.delegate?.didUpdateData(self, .reload)
 			}
 
 			let isFirstLoad = self.array.isEmpty
