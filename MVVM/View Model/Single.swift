@@ -52,7 +52,7 @@ open class ViewModel<M:Equatable> {
 extension ViewModel: Equatable {
 
 	public static func == (lhs: ViewModel<M>, rhs: ViewModel<M>) -> Bool {
-		return lhs.model == rhs.model
+		return lhs === rhs
 	}
 }
 
