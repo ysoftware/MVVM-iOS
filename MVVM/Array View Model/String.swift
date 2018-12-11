@@ -11,17 +11,14 @@ import Result
 
 open class StringArrayViewModel: SimpleArrayViewModel<String, ViewModel<String>> {
 
-	private var temp:[String]!
-
 	public init(with array:[String]) {
 		super.init()
-		temp = array
+		setData(array.map { ViewModel($0) })
 		reloadData()
 	}
 
 	final override public func fetchData(_ block: @escaping (Result<[String], AnyError>) -> Void) {
-		block(Result(temp))
-		temp = nil
+		block(.success([]))
 	}
 
 	// MARK: - Methods
