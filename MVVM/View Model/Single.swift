@@ -59,6 +59,6 @@ extension ViewModel: Equatable {
 extension ViewModel: CustomDebugStringConvertible {
 
 	public var debugDescription: String {
-		return model.debugDescription
+		return "View model: \(model.debugDescription)"
 	}
 }
