@@ -244,7 +244,7 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 	public func move(at index:Int, to newIndex:Int) {
 		guard array.endIndex > index, index >= 0 else { return }
 		DispatchQueue.main.async {
-			let newIndex = min(newIndex, self.array.endIndex-1)
+			let newIndex = Swift.min(newIndex, self.array.endIndex-1)
 			self.array.insert(self.array.remove(at: index), at: newIndex)
 			self.delegate?.didUpdateData(self, .move(startIndex:index, endIndex: newIndex))
 		}

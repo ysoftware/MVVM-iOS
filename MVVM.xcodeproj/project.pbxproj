@@ -22,6 +22,7 @@
 		7196200420F1183100CB240C /* ArrayDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71961FFE20F1183100CB240C /* ArrayDelegate.swift */; };
 		7196200620F1183100CB240C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7196200020F1183100CB240C /* Extensions.swift */; };
 		7196200720F1183100CB240C /* Simple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7196200120F1183100CB240C /* Simple.swift */; };
+		71B7079721C04393009A3BC7 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B7079621C04393009A3BC7 /* Collection.swift */; };
 		71EF75DA20F62D51000537FC /* ArrayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EF75D920F62D51000537FC /* ArrayState.swift */; };
 		7852D8E10745E221562AC9C8 /* Pods_MVVM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E27B656125325E46EC5BC4C6 /* Pods_MVVM.framework */; };
 		9678517E246571FC49559F8C /* Pods_MVVMTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FAAEF3891AD507AC5096ABB /* Pods_MVVMTests.framework */; };
@@ -60,6 +61,7 @@
 		71961FFE20F1183100CB240C /* ArrayDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayDelegate.swift; sourceTree = "<group>"; };
 		7196200020F1183100CB240C /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		7196200120F1183100CB240C /* Simple.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Simple.swift; sourceTree = "<group>"; };
+		71B7079621C04393009A3BC7 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		71EF75D920F62D51000537FC /* ArrayState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayState.swift; sourceTree = "<group>"; };
 		882897A267C6E1A69B4E18A7 /* Pods-MVVMTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVMTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MVVMTests/Pods-MVVMTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E27B656125325E46EC5BC4C6 /* Pods_MVVM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MVVM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -160,6 +162,7 @@
 				71EF75D920F62D51000537FC /* ArrayState.swift */,
 				7195415520F8D0B7008B92CC /* Update.swift */,
 				71706EF2210B468800C95121 /* UpdateHandler.swift */,
+				71B7079621C04393009A3BC7 /* Collection.swift */,
 			);
 			path = "Array View Model";
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 			files = (
 				7196200720F1183100CB240C /* Simple.swift in Sources */,
 				71706EF1210B452700C95121 /* String.swift in Sources */,
+				71B7079721C04393009A3BC7 /* Collection.swift in Sources */,
 				71961FFA20F1171600CB240C /* SingleDelegate.swift in Sources */,
 				7196200420F1183100CB240C /* ArrayDelegate.swift in Sources */,
 				7195415620F8D0B7008B92CC /* Update.swift in Sources */,
