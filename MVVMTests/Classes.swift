@@ -93,7 +93,7 @@ final class TestArrayViewModel: ArrayViewModel<TestModel, TestViewModel, TestQue
 	override func fetchData(_ query: TestQuery?, _ block: @escaping (Result<[TestModel], AnyError>)->Void) {
 		if let query = query, query.isPaginationEnabled {
 			let startIndex = data.startIndex.advanced(by: query.offset)
-			let endIndex = min(startIndex.advanced(by: query.size), data.endIndex)
+			let endIndex = Swift.min(startIndex.advanced(by: query.size), data.endIndex)
 			block(.success(Array(data[startIndex..<endIndex])))
 		}
 		else {
