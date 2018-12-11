@@ -165,16 +165,15 @@ final class TestsArrayViewModel: XCTestCase {
 		let vm = StringArrayViewModel(with: ["hello", "there", "general", "kenobi"])
 
 		async {
-			XCTAssertEqual(vm.item(at: 3).model, "kenobi", "wrong element")
+			XCTAssertEqual(vm[3].model, "kenobi", "wrong element")
 
 			async {
 				vm.appendString("!")
-				XCTAssertEqual(vm.item(at: 4).model, "!", "wrong element")
+				XCTAssertEqual(vm[4].model, "!", "wrong element")
 			}
 		}
 	}
 }
-
 
 func async(_ block: @escaping ()->Void) {
 	DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
