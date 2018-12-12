@@ -52,7 +52,7 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 
 	/// `true` if there are no elements added.
 	public var isEmpty:Bool {
-		return array.count == 0
+		return array.isEmpty
 	}
 
 	// MARK: - Private properties
