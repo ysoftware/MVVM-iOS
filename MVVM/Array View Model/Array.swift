@@ -50,9 +50,14 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 		return array.count
 	}
 
-	/// `true` if there are no elements added.
+	/// `true` if there are no view models added.
 	public var isEmpty:Bool {
 		return array.isEmpty
+	}
+
+	/// `true` if there are some view models added.
+	public var isNotEmpty:Bool {
+		return !isEmpty
 	}
 
 	// MARK: - Private properties
