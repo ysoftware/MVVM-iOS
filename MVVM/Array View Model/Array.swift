@@ -186,8 +186,8 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 			self.array = data
 			data.forEach { $0.arrayDelegate = self }
 
-			self.delegate?.didUpdateData(self, .reload)
 			self.state.setReady(true)
+			self.delegate?.didUpdateData(self, .reload)
 		}
 	}
 
