@@ -122,8 +122,8 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 				self.manageItems(items)
 				self.state.setReady(reachedEnd)
 			}
+			query?.advance()
 		}
-		query?.advance()
 	}
 
 	/// Сбросить все данные и загрузить с начала списка.
