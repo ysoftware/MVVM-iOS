@@ -122,7 +122,7 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 				self.manageItems(items)
 				self.state.setReady(reachedEnd)
 			}
-			query?.advance()
+			self.query?.advance()
 		}
 	}
 
