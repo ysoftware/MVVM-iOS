@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Result
 
 /// Основной класс для управления списками данных с возможной пагинацией.
 /// Для простого списка без пагинации, есть упрощённый сабкласс `SimpleArrayViewModel`.
@@ -78,7 +77,7 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 	///   - block: блок, в который необходимо отправить загруженные объекты.
 	///	  - data: список объектов класса модели, полученный из базы данных.
 	///	  - error: ошибка при загрузке данных.
-	open func fetchData(_ query:Q?, _ block: @escaping (_ result:Result<[M], AnyError>)->Void) {
+	open func fetchData(_ query:Q?, _ block: @escaping (_ result:Result<[M], Error>)->Void) {
 		fatalError("override ArrayViewModel.fetchData(_:)")
 	}
 
@@ -222,7 +221,7 @@ open class ArrayViewModel<M, VM:ViewModel<M>, Q:Query> {
 	///
 	/// - Parameter viewModel: обновлённый view model.
 	public func notifyUpdated(_ viewModel: VM) {
-		guard let index = array.index(of: viewModel) else { return }
+		guard let index = array.firstIndex(of: viewModel) else { return }
 		DispatchQueue.main.async {
 			self.delegate?.didUpdateData(self, .update(indexes: [index]))
 		}

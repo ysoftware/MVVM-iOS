@@ -6,7 +6,7 @@
 //  Copyright © 2018 Ysoftware. All rights reserved.
 //
 
-import Result
+import Foundation
 
 /// Статус процессов внутри array view model.
 public enum ArrayViewModelState {
@@ -57,16 +57,11 @@ public enum ArrayViewModelState {
 
 	/// Установить `.error` / `.paginationError` в зависимости от текущего статуса.
 	mutating func setError(_ error:Error) {
-
-		// unwrap Result's AnyError to avoid confusion when trying to pattern match
-		// case .error(SomeError.knownError)
-		let newError = (error as? AnyError)?.error ?? error
-
 		if self == .loading {
-			self = .error(error: newError)
+			self = .error(error: error)
 		}
 		else {
-			self = .paginationError(error: newError)
+			self = .paginationError(error: error)
 		}
 	}
 }
